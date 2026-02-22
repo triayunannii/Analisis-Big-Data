@@ -9,7 +9,7 @@ Modul 1 ini intinya:
 * Simulasi object storage seperti cloud
 
 ---
-# 🎯  **3.4 –Instalasi dan Setup Docker di WSL**.
+# 🎯  **3.3 –Instalasi dan Setup Docker di WSL**.
 # 🔵 BAGIAN 1 — CEK DAN SIAPKAN WSL2
 
 ## 🔹 Langkah 1: Cek WSL Aktif
