@@ -113,11 +113,6 @@ sudo apt install docker-ce docker-ce-cli \
 containerd.io docker-buildx-plugin docker-compose-plugin -y
 ```
 
-📌 Cara jelasin ke pemula:
-
-> “Kita sedang memasang mesin yang bisa menjalankan container.
-> Container itu seperti mini server kecil di dalam komputer kita.”
-
 ---
 
 # 🔵 BAGIAN 5 — AGAR DOCKER BISA JALAN TANPA SUDO
@@ -293,7 +288,7 @@ docker compose down
 
 
 
-# 🎯 ** 3.4 – Konfigurasi Storage Layer (MinIO)**.
+# 🎯 **3.4 – Konfigurasi Storage Layer (MinIO)**.
 
 > “Sekarang kita membangun Storage Layer.
 > Artinya kita menyiapkan tempat penyimpanan data seperti Amazon S3, tapi berjalan di komputer kita sendiri.”
@@ -572,36 +567,7 @@ cd raw-data
 
 ---
 
-# 🔹 LANGKAH 2 — Buat File sample.csv
-
-Di dalam `raw-data`:
-
-```bash
-nano sample.csv
-```
-
-Isi:
-
-```csv
-id,name,age,city
-1,Andi,21,Bandar Lampung
-2,Budi,23,Jakarta
-3,Siti,,Surabaya
-4,Rina,22,Bandung
-```
-
-Simpan (CTRL+O → Enter → CTRL+X).
-
-📌 Jelaskan:
-
-* Data ini sengaja ada missing value (umur Siti kosong).
-* Ini untuk simulasi bahwa Bronze belum dibersihkan.
-
-Tekankan:
-
-> Bronze menerima data apa adanya.
-
----
+# 🔹 LANGKAH 2 — download File sample.csv
 
 # 🔹 LANGKAH 3 — Upload ke Bronze
 
