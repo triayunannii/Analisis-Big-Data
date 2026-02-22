@@ -1,7 +1,7 @@
 # Analisis-Big-Data
 Memahami bagaimana alur pemahaman dari analisi big data
 
-Modul ini intinya:
+Modul 1 ini intinya:
 
 * Jalankan Linux di Windows (WSL2)
 * Install Docker
