@@ -2551,4 +2551,162 @@ pip install pyarrow
 
 ---
 
+## Tugas Take Home Modul 1
 
+# 🎯 Ringkasan Minimal 3 Agregasi
+
+| Kelompok        | Agregasi                   |
+| --------------- | -------------------------- |
+| 1 (COVID)       | Total kasus & kematian     |
+| 1 (COVID)       | CFR                        |
+| 1 (COVID)       | Rata-rata kasus harian     |
+| 3 (Temperature) | Rata-rata suhu per negara  |
+| 3 (Temperature) | Rata-rata suhu per tahun   |
+| 3 (Temperature) | Perubahan suhu antar waktu |
+
+---
+
+## ✅ AGREGASI 1 — Total Kasus & Total Kematian per Negara
+
+📊 Tujuan:
+Melihat dampak kumulatif COVID tiap negara.
+
+```python
+df_gold_1 = (
+    df.groupby('location')
+      .agg(
+          total_cases=('total_cases', 'max'),
+          total_deaths=('total_deaths', 'max')
+      )
+      .reset_index()
+)
+```
+
+Kenapa pakai `max()`?
+Karena total_cases bersifat kumulatif.
+
+---
+
+## ✅ AGREGASI 2 — Case Fatality Rate (CFR) per Negara
+
+📊 Tujuan:
+Mengukur tingkat kematian relatif.
+
+```python
+df_cfr = (
+    df.groupby('location')
+      .agg(
+          total_cases=('total_cases', 'max'),
+          total_deaths=('total_deaths', 'max')
+      )
+      .reset_index()
+)
+
+df_cfr['cfr_percentage'] = (
+    df_cfr['total_deaths'] / df_cfr['total_cases'] * 100
+)
+```
+
+Ini lebih analitik daripada sekadar jumlah kasus.
+
+---
+
+## ✅ AGREGASI 3 — Rata-rata Kasus Harian per Negara
+
+📊 Tujuan:
+Mengukur intensitas penyebaran.
+
+```python
+df_gold_3 = (
+    df.groupby('location')
+      .agg(
+          avg_daily_cases=('new_cases', 'mean')
+      )
+      .reset_index()
+)
+```
+
+Ini membantu membandingkan dinamika pandemi antar negara.
+
+---
+
+# 🟢 KELOMPOK 3 — Global Temperature (Kaggle)
+
+Dataset biasanya punya kolom seperti:
+
+* dt (tanggal)
+* average_temperature
+* average_temperature_uncertainty
+* country
+
+---
+
+## ✅ AGREGASI 1 — Rata-rata Temperatur per Negara
+
+📊 Tujuan:
+Melihat baseline suhu tiap negara.
+
+```python
+df_gold_1 = (
+    df.groupby('country')
+      .agg(
+          avg_temperature=('average_temperature', 'mean')
+      )
+      .reset_index()
+)
+```
+
+---
+
+## ✅ AGREGASI 2 — Rata-rata Temperatur per Tahun (Global Trend)
+
+📊 Tambahkan kolom tahun dulu:
+
+```python
+df['year'] = pd.to_datetime(df['dt']).dt.year
+```
+
+Lalu agregasi:
+
+```python
+df_gold_2 = (
+    df.groupby('year')
+      .agg(
+          global_avg_temp=('average_temperature', 'mean')
+      )
+      .reset_index()
+)
+```
+
+Ini penting untuk melihat tren pemanasan global.
+
+---
+
+## ✅ AGREGASI 3 — Negara dengan Perubahan Suhu Terbesar
+
+📊 Hitung selisih suhu awal dan akhir:
+
+```python
+df['year'] = pd.to_datetime(df['dt']).dt.year
+
+temp_change = (
+    df.groupby(['country', 'year'])
+      .agg(avg_temp=('average_temperature','mean'))
+      .reset_index()
+)
+
+first_last = (
+    temp_change.groupby('country')
+      .agg(
+          first_temp=('avg_temp','first'),
+          last_temp=('avg_temp','last')
+      )
+      .reset_index()
+)
+
+first_last['temperature_change'] = (
+    first_last['last_temp'] - first_last['first_temp']
+)
+```
+
+---
