@@ -544,7 +544,7 @@ Nanti compute akan berjalan di container berbeda.
 
 ---
 
-# 🔹 LANGKAH 1 — Pastikan Masih di WSL
+# 🔹 LANGKAH 1 — Pastikan Masih di WSL 
 
 Kita masih di terminal Ubuntu (WSL) yang tadi.
 
